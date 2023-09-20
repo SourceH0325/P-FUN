@@ -1,21 +1,22 @@
 @echo off
 setlocal enabledelayedexpansion
 set Count=0
-set Time=총 작동 시간 (초)
-set MEMTime=메모리 과부하 작동 중지 시간 (초)
-set ShutdownProgram=작동 중지 시킬 프로그램 이름.exe
+set Time="Seconds to run the program for a few seconds"
+set CoolTime="Seconds for how many seconds to shut down the program"
+set MEMTime="Seconds to stop while preventing low memory"
+set ShutdownProgram="Name of the program you want to stop"
 
 :loop
 taskkill /f /im !ShutdownProgram! >nul
 
 set /a Count+=1
-echo 프로그램 종료한 횟수 : !Count!
+echo Number of program terminations : !Count!
 
-timeout /t 1 >nul
+timeout /t !CoolTime! >nul
 
 if !Count! geq !Time! (
     set /a Count = 0
-    powershell -Command "[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); [System.Windows.Forms.MessageBox]::Show('메모리 부족 방지를 위해 !MEMTime!초간 프로그램이 중지됩니다.', '주의', 'OK', 0)"
+    powershell -Command "[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); [System.Windows.Forms.MessageBox]::Show('The program is interrupted for !MEMTime! second to avoid running out of memory.', 'Warning', 'OK', 0)"
     timeout /t !MEMTime! 
     goto loop
 ) else (
