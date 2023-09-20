@@ -1,21 +1,21 @@
 @echo off
 setlocal enabledelayedexpansion
 set Count=0
-set Time=ÃÑ ÀÛµ¿ ½Ã°£ (ÃÊ)
-set MEMTime=¸Ş¸ğ¸® °úºÎÇÏ ÀÛµ¿ ÁßÁö ½Ã°£ (ÃÊ)
-set ShutdownProgram=ÀÛµ¿ ÁßÁö ½ÃÅ³ ÇÁ·Î±×·¥ ÀÌ¸§.exe
+set Time=ì´ ì‘ë™ ì‹œê°„ (ì´ˆ)
+set MEMTime=ë©”ëª¨ë¦¬ ê³¼ë¶€í•˜ ì‘ë™ ì¤‘ì§€ ì‹œê°„ (ì´ˆ)
+set ShutdownProgram=ì‘ë™ ì¤‘ì§€ ì‹œí‚¬ í”„ë¡œê·¸ë¨ ì´ë¦„.exe
 
 :loop
-taskkill /f /im !ShutdownProgram!.exe >nul
+taskkill /f /im !ShutdownProgram! >nul
 
 set /a Count+=1
-echo ÇÁ·Î±×·¥ Á¾·áÇÑ È½¼ö : !Count!
+echo í”„ë¡œê·¸ë¨ ì¢…ë£Œí•œ íšŸìˆ˜ : !Count!
 
 timeout /t 1 >nul
 
 if !Count! geq !Time! (
     set /a Count = 0
-    powershell -Command "[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); [System.Windows.Forms.MessageBox]::Show('¸Ş¸ğ¸® ºÎÁ· ¹æÁö¸¦ À§ÇØ !MEMTime!ÃÊ°£ ÇÁ·Î±×·¥ÀÌ ÁßÁöµË´Ï´Ù.', 'ÁÖÀÇ', 'OK', 0)"
+    powershell -Command "[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); [System.Windows.Forms.MessageBox]::Show('ë©”ëª¨ë¦¬ ë¶€ì¡± ë°©ì§€ë¥¼ ìœ„í•´ !MEMTime!ì´ˆê°„ í”„ë¡œê·¸ë¨ì´ ì¤‘ì§€ë©ë‹ˆë‹¤.', 'ì£¼ì˜', 'OK', 0)"
     timeout /t !MEMTime! 
     goto loop
 ) else (
